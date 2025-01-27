@@ -1,0 +1,13 @@
+@import url("https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400..800;1,400..800&family=Raleway:ital,wght@0,100..900;1,100..900&display=swap");
+html,
+body {
+  padding: 0;
+  margin: 0;
+}
+
+h1,
+h2 {
+  font-family: "EB Garamond", serif;
+  font-weight: 400;
+  color: rgb(65, 65, 65);
+}
