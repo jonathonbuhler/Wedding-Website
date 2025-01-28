@@ -1,11 +1,44 @@
-.flex {
+.flowers {
+  object-fit: cover;
+  width: 100%;
+}
+
+.nav {
   display: flex;
   width: 100%;
   justify-content: center;
   align-items: center;
-  flex-direction: column;
+  flex-direction: row;
 }
 
-.flex h1 {
+.nav a {
+  text-decoration: none;
+  font-size: 18px;
+  color: rgb(66, 66, 66);
+  padding: 15px;
+}
+
+.nav a:hover {
+  color: rgb(90, 90, 255);
+  text-shadow: 0 0 1px rgb(90, 90, 255);
+}
+
+.header {
+  margin-top: -20vw;
+}
+
+.header h1 {
   font-size: 50px;
+  letter-spacing: 4px;
+  margin: 0;
+  max-width: 75%;
+}
+
+.header h2 {
+  margin-top: 5px;
+  margin-bottom: 40px;
+}
+
+.selected {
+  border-bottom: 2px solid black;
 }

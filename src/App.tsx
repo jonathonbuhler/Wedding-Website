@@ -1,6 +1,8 @@
 import styles from "./App.module.css";
 import Home from "./components/Home/Home";
 import Navbar from "./components/Navbar/Navbar";
+import Invites from "./components/Invites/Invites";
+import RSVP from "./components/RSVP/RSVP";
 
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 
@@ -11,6 +13,8 @@ function App() {
         <Navbar />
         <Routes>
           <Route path="/" element={<Home />} />
+          <Route path="/invites" element={<Invites />} />
+          <Route path="/rsvp" element={<RSVP />} />
         </Routes>
       </div>
     </Router>
