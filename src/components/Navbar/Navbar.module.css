@@ -19,12 +19,13 @@
 }
 
 .nav a:hover {
-  color: rgb(90, 90, 255);
-  text-shadow: 0 0 1px rgb(90, 90, 255);
+  color: rgb(132, 132, 231);
+  text-shadow: 0 0 1px rgb(132, 132, 231);
 }
 
 .header {
   margin-top: -20vw;
+  padding-bottom: 10vw;
 }
 
 .header h1 {

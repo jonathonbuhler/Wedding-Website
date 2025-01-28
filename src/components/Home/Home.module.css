@@ -1,7 +1,32 @@
-.flex {
-  display: flex;
+.home-container hr {
+  width: 75%;
+}
+
+.us {
+  object-fit: cover;
   width: 100%;
-  justify-content: center;
-  align-items: center;
+}
+
+.schedule {
+  list-style: none;
+  display: flex;
   flex-direction: column;
+  gap: 10px;
+  padding: 0 25% 0 25%;
+}
+
+.schedule * {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-family: "EB Garamond", serif;
+}
+
+@media screen and (width > 900px) {
+  .us {
+    grid-column: 7/12;
+  }
+  .wedding-details {
+    grid-column: 2/7;
+  }
 }
