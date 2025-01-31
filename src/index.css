@@ -31,9 +31,9 @@ hr {
 
 .grid {
   display: grid;
-  width: 100%;
   grid-template-columns: repeat(12, 1fr);
-  gap: 20px;
+  column-gap: 20px;
+  row-gap: 10px;
   max-width: 1536px;
   margin: auto;
 }

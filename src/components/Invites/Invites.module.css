@@ -1,0 +1,14 @@
+.invites-container input[type="text"],
+.invites-container input[type="address"],
+.invites-container input[type="submit"] {
+  border: 1px solid gray;
+  border-radius: 5px;
+  padding: 8px;
+}
+
+.invites-container form {
+  display: flex;
+  gap: 8px;
+  flex-direction: column;
+  width: 100%;
+}
