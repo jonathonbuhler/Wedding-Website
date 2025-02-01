@@ -9,44 +9,46 @@ const port = 3001;
 app.use(cors());
 app.use(express.json())
 
-const db = mysql.createConnection({
+const pool = mysql.createPool({
     host: 'wedding.cihg8aa88bhp.us-east-1.rds.amazonaws.com',
     user: 'admin',
     password: 'B8(4s$sY0',
     database: 'wedding',
+    waitForConnections: true, 
+    connectionLimit: 10, 
+    queueLimit: 0 
 });
 
-db.connect((err) => {
-    if (err) {
-        console.error('Error connecting to MySQL database', err);
-        return;
-    }
-    console.log('Connected to MySQL Database');
-})
+const db = pool.promise()
 
-app.post('/add-invite', (req, res) => {
+app.post('/add-invite', async (req, res) => {
     const { first_name, last_name, address_1, address_2, city, state, postal, country} = req.body
 
     const query = "INSERT INTO invite_list (first_name, last_name, address_1, address_2, city, state, postal, country) VALUES (?,?,?,?,?,?,?,?)"
-    db.query(query, [first_name, last_name, address_1, address_2, city, state, postal, country] ,(err, results) => {
-        if (err) {
-            res.status(500).send('Error retrieving data');
-            return;
-        }
-        res.status(200).send('Invite added successfully');
-    })
+
+    try {
+        await db.query(query, [first_name, last_name, address_1, address_2, city, state, postal, country])
+        res.status(200).send('Invite added successfully.');
+    } catch (err) {
+        console.error('Error inserting invite', err)
+        res.status(500).send('Invite request failed.')
+    }
+    
+    
 })
 
-app.get('/load-invites', (req, res) => {
+
+app.get('/load-invites', async (req, res) => {
     const query = 'SELECT * FROM invite_list';
     
-    db.query(query, (err, results) => {
-        if (err) {
-            res.status(500).send('Error retrieving data');
-            return;
-        }
+    try {
+        const [results] = await db.query(query);
         res.json(results);
-    })
+    } catch (err) {
+        console.error('Error loading invites', err);
+        res.status(500).send('Error loading invites');
+    }
+    
    
     
 })

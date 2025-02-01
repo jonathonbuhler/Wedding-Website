@@ -1,0 +1,15 @@
+.incomplete {
+  max-width: 1536px;
+  margin: auto;
+  width: calc(100% - 100px);
+  padding: 15px;
+  border: 1px solid gray;
+  border-radius: 10px;
+  box-shadow: 1px 1px 3px gray;
+  /* table-layout: fixed; */
+}
+
+.incomplete td,
+.incomplete th {
+  text-align: left;
+}

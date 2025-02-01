@@ -4,7 +4,7 @@ import Navbar from "./components/Navbar/Navbar";
 import Invites from "./components/Invites/Invites";
 import RSVP from "./components/RSVP/RSVP";
 import Footer from "./components/Footer/Footer";
-import Admin from "./components/Admin/Admin";
+import { Admin, Login } from "./components/Admin/Admin";
 
 import { Routes, Route, useLocation } from "react-router-dom";
 
@@ -16,6 +16,7 @@ function App() {
     <>
       {isAdminRoute ? (
         <Routes>
+          <Route path="/admin-login" element={<Login />} />
           <Route path="/admin" element={<Admin />} />
         </Routes>
       ) : (

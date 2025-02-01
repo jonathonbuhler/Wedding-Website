@@ -20,7 +20,7 @@ function Navbar() {
             className={({ isActive }) => (isActive ? styles.selected : "")}
             to="/invites"
           >
-            Invites
+            Request An Invite
           </NavLink>
           <NavLink
             className={({ isActive }) => (isActive ? styles.selected : "")}

@@ -1,16 +1,7 @@
+import styles from "./Admin.module.css";
 import { useEffect, useState } from "react";
 
 type Invite = {
-  fullName: string;
-  streetAddress1: string;
-  streetAddress2: string;
-  city: string;
-  state: string;
-  postalCode: string;
-  countryName: string;
-};
-
-type MySQLInvite = {
   first_name: string;
   last_name: string;
   address_1: string;
@@ -21,40 +12,57 @@ type MySQLInvite = {
   country: string;
 };
 
+function Login() {
+  return (
+    <>
+      <h1>Login</h1>
+    </>
+  );
+}
+
 function Admin() {
   const [invites, setInvites] = useState<Invite[]>([]);
 
   useEffect(() => {
     fetch("http://localhost:3001/load-invites")
       .then((response) => response.json())
-      .then((data) => {
-        const mappedInvites: Invite[] = data.map((invite: MySQLInvite) => ({
-          fullName: `${invite.first_name} ${invite.last_name}`,
-          streetAddress1: invite.address_1,
-          streetAddress2: invite.address_2,
-          city: invite.city,
-          state: invite.state,
-          postalCode: invite.postal,
-          countryName: invite.country,
-        }));
-        setInvites(mappedInvites);
-      })
+      .then((data) => setInvites(data))
       .catch((error: any) => console.error("Error loading invites", error));
   }, []);
 
   return (
-    <>
+    <div className={styles["admin-container"]}>
       <h1>Admin</h1>
-      <ul>
-        {invites.map((item, index) => (
-          <li key={index}>
-            {item.fullName} {item.streetAddress1} {item.streetAddress2},{" "}
-            {item.city} {item.state} {item.postalCode} {item.countryName}
-          </li>
-        ))}
-      </ul>
-    </>
+      <table className={styles.incomplete}>
+        <thead>
+          <tr>
+            <th>First Name</th>
+            <th>Last Name</th>
+            <th>Address Line 1</th>
+            <th>Address Line 2</th>
+            <th>City</th>
+            <th>State</th>
+            <th>Zip</th>
+            <th>Country</th>
+          </tr>
+        </thead>
+        <tbody>
+          {invites.map((item, index) => (
+            <tr key={index}>
+              <td>{item.first_name}</td>
+              <td>{item.last_name}</td>
+              <td>{item.address_1}</td>
+              <td>{item.address_2}</td>
+              <td>{item.city}</td>
+              <td>{item.state}</td>
+              <td>{item.postal}</td>
+              <td>{item.country}</td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
+    </div>
   );
 }
 
-export default Admin;
+export { Admin, Login };
