@@ -1,0 +1,24 @@
+.footer {
+  /* background-color: #f8f8f8; */
+  text-align: center;
+  padding: 20px;
+  font-size: 16px;
+  color: rgb(79, 99, 137);
+  /* border-top: 2px solid rgba(79, 99, 137, 0.32); */
+  margin-top: 15px;
+}
+
+.footer p {
+  margin: 5px 0;
+  font-family: "Times New Roman", Times, serif;
+}
+
+.footer a {
+  color: rgb(79, 99, 137);
+  text-decoration: none;
+  font-weight: bold;
+}
+
+.footer a:hover {
+  text-decoration: underline;
+}

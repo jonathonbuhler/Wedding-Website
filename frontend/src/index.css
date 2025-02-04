@@ -4,21 +4,26 @@ body {
   text-align: center;
   padding: 0;
   margin: 0;
+  font-family: "EB Garamond", serif;
 }
 
 h1,
 h2,
-a {
-  font-family: "EB Garamond", serif;
+a,
+h3,
+address {
   font-weight: 400;
-  color: rgb(65, 65, 65);
+  color: rgb(79, 99, 137);
   letter-spacing: 2px;
+  padding: 0;
+  margin: 0;
 }
 hr {
   border: none;
-  background-color: black;
-  height: 2px;
+  background-color: rgb(134, 185, 205);
+  height: 1px;
   margin-bottom: 20px;
+  width: 100%;
 }
 
 .flex {

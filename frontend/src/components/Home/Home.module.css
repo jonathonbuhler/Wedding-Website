@@ -1,32 +1,37 @@
-.home-container hr {
-  width: 75%;
+.home-container {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
 }
 
 .us {
   object-fit: cover;
   width: 100%;
+  max-width: 900px;
 }
 
-.schedule {
-  list-style: none;
-  display: flex;
-  flex-direction: column;
-  gap: 10px;
-  padding: 0 25% 0 25%;
+.home-container h2 {
+  font-size: 30px;
+  font-weight: 400;
 }
 
-.schedule * {
+.home-container h3 {
+  font-size: 25px;
+  font-weight: 0;
+}
+
+.manti {
   display: flex;
-  justify-content: space-between;
   align-items: center;
-  font-family: "EB Garamond", serif;
+  justify-content: center;
+  text-decoration: none;
 }
 
-@media screen and (width > 900px) {
-  .us {
-    grid-column: 7/12;
-  }
-  .wedding-details {
-    grid-column: 2/7;
-  }
+.manti address {
+  padding: 5px 0 5px 0;
+  border-bottom: 2px solid transparent;
+}
+
+.manti address:hover {
+  border-bottom: 2px solid rgb(79, 99, 137);
 }
