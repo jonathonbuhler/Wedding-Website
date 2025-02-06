@@ -1,8 +1,24 @@
 import styles from "./Navbar.module.css";
-import { NavLink } from "react-router-dom";
+import { NavLink, useNavigate, useLocation } from "react-router-dom";
 import flowers from "../../assets/flowers.webp";
 
 function Navbar() {
+  const navigate = useNavigate();
+  const location = useLocation();
+
+  const handleClick = () => {
+    if (location.pathname !== "/") {
+      navigate("/", { replace: false });
+      setTimeout(() => {
+        document
+          .getElementById("story")!
+          .scrollIntoView({ behavior: "smooth" });
+      }, 100);
+    } else {
+      document.getElementById("story")!.scrollIntoView({ behavior: "smooth" });
+    }
+  };
+
   return (
     <>
       <img className={styles.flowers} src={flowers} alt="background flowers" />
@@ -16,6 +32,7 @@ function Navbar() {
           >
             Home
           </NavLink>
+          <button onClick={handleClick}>Our Story</button>
           <NavLink
             className={({ isActive }) => (isActive ? styles.selected : "")}
             to="/invites"

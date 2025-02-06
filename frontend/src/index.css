@@ -11,16 +11,20 @@ h1,
 h2,
 a,
 h3,
-address {
+time,
+p,
+button {
   font-weight: 400;
   color: rgb(79, 99, 137);
   letter-spacing: 2px;
   padding: 0;
   margin: 0;
+  font-family: "EB Garamond", serif;
 }
+
 hr {
   border: none;
-  background-color: rgb(134, 185, 205);
+  background-color: rgba(114, 136, 144, 0.33);
   height: 1px;
   margin-bottom: 20px;
   width: 100%;
