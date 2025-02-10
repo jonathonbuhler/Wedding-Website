@@ -6,31 +6,21 @@ import RSVP from "./components/RSVP/RSVP";
 import Footer from "./components/Footer/Footer";
 import { Admin, Login } from "./components/Admin/Admin";
 
-import { Routes, Route, useLocation } from "react-router-dom";
+import { Routes, Route } from "react-router-dom";
 
 function App() {
-  const location = useLocation();
-  const isAdminRoute = location.pathname === "/admin";
-
   return (
-    <>
-      {isAdminRoute ? (
-        <Routes>
-          <Route path="/admin-login" element={<Login />} />
-          <Route path="/admin" element={<Admin />} />
-        </Routes>
-      ) : (
-        <div className={styles.grid}>
-          <Navbar />
-          <Routes>
-            <Route path="/" element={<Home />} />
-            <Route path="/invites" element={<Invites />} />
-            <Route path="/rsvp" element={<RSVP />} />
-          </Routes>
-          <Footer />
-        </div>
-      )}
-    </>
+    <div className={styles.grid}>
+      <Navbar />
+      <Routes>
+        <Route path="/" element={<Home />} />
+        <Route path="/invites" element={<Invites />} />
+        <Route path="/rsvp" element={<RSVP />} />
+        <Route path="/admin-login" element={<Login />} />
+        <Route path="/admin" element={<Admin />} />
+      </Routes>
+      <Footer />
+    </div>
   );
 }
 

@@ -1,12 +1,6 @@
 .invites-container {
   padding: 0 15px 0 15px;
-}
-
-.invites-container input[type="text"],
-.invites-container input[type="address"],
-.invites-container input[type="submit"] {
-  border: 1px solid rgba(128, 128, 128, 0.517);
-  padding: 8px;
+  min-height: 50vh;
 }
 
 .invites-container form {
@@ -14,14 +8,4 @@
   gap: 12px;
   flex-direction: column;
   width: 100%;
-}
-
-.invites-container input[type="submit"] {
-  background-color: rgb(79, 99, 137);
-}
-
-.invites-container input[type="submit"]:hover {
-  cursor: pointer;
-  background-color: rgb(102, 128, 175);
-  color: rgb(139, 175, 242);
 }

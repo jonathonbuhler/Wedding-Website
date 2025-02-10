@@ -1,0 +1,19 @@
+.rsvp-container {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  min-height: 50vh;
+  max-width: 600px;
+  padding: 15px;
+  margin: auto;
+}
+
+.rsvp-container input[type="text"] {
+  margin-top: 25px;
+}
+
+.rsvp-container form {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+}

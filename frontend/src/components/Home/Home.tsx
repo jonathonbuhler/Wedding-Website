@@ -48,7 +48,7 @@ function Home() {
         </p>
       </div>
       <hr id="story" />
-      <div>
+      <div className={styles["story-container"]}>
         <h2>Our Story</h2>
         <h3 className={styles["timeline-start"]}>2024</h3>
         <div className={styles.story}>
@@ -68,7 +68,7 @@ function Home() {
             <p>They also got to continue going on dates and adventures.</p>
             <img src={story_6} alt="Disneyland" />
             <p>
-              On November 24th, Jonathon and Emmalyn went to dinner and
+              On November 25th, Jonathon and Emmalyn went to dinner and
               afterwards made hot chocolate and sat by the fire. Jonathon popped
               the question and Emmalyn said YES!
             </p>
@@ -98,7 +98,7 @@ function Home() {
               Emmalyn's family!
             </p>
             <img src={story_5} alt="Hiking the Y" />
-            <p>Disneyland together was super fun!</p>
+            <p>They had a blast together at Disneyland!</p>
             <img src={story_7} alt="Engaged" />
           </div>
         </div>

@@ -6,18 +6,26 @@ function Navbar() {
   const navigate = useNavigate();
   const location = useLocation();
 
-  const handleClick = () => {
+  const handleClick = async () => {
     if (location.pathname !== "/") {
-      navigate("/", { replace: false });
+      await navigate("/", { replace: false });
       setTimeout(() => {
         document
           .getElementById("story")!
           .scrollIntoView({ behavior: "smooth" });
-      }, 100);
+      }, 0);
     } else {
       document.getElementById("story")!.scrollIntoView({ behavior: "smooth" });
     }
   };
+
+  if (
+    location.pathname !== "/" &&
+    location.pathname !== "/rsvp" &&
+    location.pathname !== "/invites"
+  ) {
+    return null;
+  }
 
   return (
     <>
