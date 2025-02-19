@@ -1,19 +1,182 @@
+.flowers {
+  width: 100%;
+  object-fit: cover;
+}
+
 .rsvp-container {
   display: flex;
   flex-direction: column;
   gap: 12px;
-  min-height: 50vh;
+  min-height: 75vh;
+  width: calc(100% - 30px);
   max-width: 600px;
   padding: 15px;
   margin: auto;
+  padding-bottom: 45px;
 }
 
-.rsvp-container input[type="text"] {
-  margin-top: 25px;
+.rsvp-form-container {
+  margin-top: -20vw;
 }
 
 .rsvp-container form {
   display: flex;
   flex-direction: column;
-  width: 100%;
+  gap: 15px;
+}
+
+.rsvp-container label {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 5px;
+  align-self: center;
+  padding: 5px;
+}
+
+.rsvp-container label p {
+  width: calc(100% - 20px);
+}
+
+.rsvp-container .add {
+  width: 25px;
+  height: 25px;
+  align-self: center;
+}
+
+.info-icon {
+  display: inline-block;
+  position: relative;
+  cursor: pointer;
+  font-size: 18px;
+  color: rgb(79, 99, 137);
+  padding: 5px;
+  margin-left: 3px;
+}
+
+.tooltip {
+  visibility: hidden;
+  position: absolute;
+  left: 50%;
+  bottom: 125%;
+  transform: translateX(-50%);
+  background-color: rgb(255, 255, 255);
+  padding: 8px;
+  border-radius: 5px;
+  font-size: 14px;
+  opacity: 0;
+  transition: opacity 0.3s ease-in-out;
+  width: 50vw;
+  max-width: 600px;
+  z-index: 10;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+}
+
+.info-icon:hover .tooltip {
+  visibility: visible;
+  opacity: 1;
+}
+
+.list-attending-container {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+.guest-name {
+  background-color: rgb(208, 220, 243);
+  color: black;
+  padding: 8px;
+  border-radius: 5px;
+  user-select: none;
+}
+
+.guest-name:hover {
+  cursor: pointer;
+}
+
+.x-button i,
+.x-button {
+  color: rgb(31, 46, 114);
+  background-color: transparent;
+  transition: color 0.2s ease;
+  padding: 3px;
+}
+
+.x-button:hover i,
+.x-button:hover {
+  color: red;
+  background-color: transparent;
+}
+
+.event-x-button {
+  position: absolute;
+  right: 3%;
+  top: 5%;
+}
+
+.add-attending {
+  visibility: hidden;
+  opacity: 0;
+  transition: opacity 0.2s ease;
+  position: absolute;
+  background-color: white;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+  border-radius: 5px;
+  padding: 15px;
+  bottom: 110%;
+  display: flex;
+  flex-wrap: wrap;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+}
+
+.add-attending.showing {
+  visibility: visible;
+  opacity: 1;
+}
+
+.add-attending h2 {
+  flex: 1 1 100%;
+}
+
+.event {
+  display: flex;
+  position: relative;
+  justify-content: center;
+  align-items: center;
+  gap: 12px;
+  flex-direction: column;
+  max-width: 600px;
+}
+
+.add-button {
+  background-color: transparent;
+  padding: 3px;
+}
+
+.add-button:hover {
+  background-color: transparent;
+}
+
+.add-button i {
+  transition: color 0.2s ease;
+}
+
+.add-button:hover i {
+  color: rgb(0, 94, 255);
+}
+
+.add-all-people {
+  background-color: transparent;
+  text-decoration: underline;
+  font-weight: bold;
+  color: rgb(79, 99, 137);
+}
+
+.add-all-people:hover {
+  background-color: transparent;
 }

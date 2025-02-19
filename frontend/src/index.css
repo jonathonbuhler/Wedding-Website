@@ -13,13 +13,22 @@ a,
 h3,
 time,
 p,
-button {
+button,
+label,
+input,
+select,
+i {
   font-weight: 400;
   color: rgb(79, 99, 137);
   letter-spacing: 2px;
   padding: 0;
   margin: 0;
   font-family: "EB Garamond", serif;
+}
+
+input {
+  font-weight: 500;
+  color: #284879;
 }
 
 hr {
@@ -51,19 +60,53 @@ hr {
   grid-column: span 12;
 }
 
-input[type="submit"] {
+input[type="submit"],
+button {
   background-color: rgb(79, 99, 137);
+  color: black;
+  border: none;
+  transition: background-color 0.2s ease, color 0.2s ease;
 }
 
-input[type="submit"]:hover {
+input[type="submit"]:hover,
+button:hover {
   cursor: pointer;
   background-color: rgb(102, 128, 175);
   color: rgb(139, 175, 242);
 }
 
+input[type="checkbox"] {
+  appearance: none;
+  border: 1px solid rgba(128, 128, 128, 0.517);
+  width: 15px;
+  height: 15px;
+  transition: background-color 0.2s ease;
+  display: block;
+  position: relative;
+  background-color: white;
+}
+
+label:hover,
+input[type="checkbox"]:hover {
+  cursor: pointer;
+}
+
+input[type="checkbox"]:checked {
+  background-color: #4c74af;
+  border-color: #4c74af;
+}
+
 input[type="text"],
 input[type="address"],
-input[type="submit"] {
+input[type="submit"],
+input[type="number"],
+select {
   border: 1px solid rgba(128, 128, 128, 0.517);
   padding: 8px;
+}
+
+select {
+  box-sizing: border-box;
+  background-color: white;
+  height: 40px;
 }

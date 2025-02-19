@@ -1,6 +1,16 @@
+import { useLocation } from "react-router-dom";
 import styles from "./Footer.module.css";
 
 function Footer() {
+  const location = useLocation();
+
+  if (
+    location.pathname !== "/" &&
+    location.pathname !== "/rsvp" &&
+    location.pathname !== "/invites"
+  ) {
+    return null;
+  }
   return (
     <div className={styles.footer}>
       <p>Thank you for celebrating with us! 💙</p>

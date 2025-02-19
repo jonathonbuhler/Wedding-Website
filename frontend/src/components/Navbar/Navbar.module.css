@@ -20,6 +20,8 @@
 
 .nav a,
 .nav button {
+  background-color: none;
+  color: rgb(79, 99, 137);
   text-decoration: none;
   font-size: 18px;
   padding: 15px;

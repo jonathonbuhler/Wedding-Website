@@ -8,12 +8,12 @@ function Navbar() {
 
   const handleClick = async () => {
     if (location.pathname !== "/") {
-      await navigate("/", { replace: false });
+      await navigate("/");
       setTimeout(() => {
         document
           .getElementById("story")!
           .scrollIntoView({ behavior: "smooth" });
-      }, 0);
+      }, 10);
     } else {
       document.getElementById("story")!.scrollIntoView({ behavior: "smooth" });
     }
