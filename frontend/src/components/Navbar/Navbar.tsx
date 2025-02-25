@@ -22,7 +22,8 @@ function Navbar() {
   if (
     location.pathname !== "/" &&
     location.pathname !== "/rsvp" &&
-    location.pathname !== "/invites"
+    location.pathname !== "/invites" &&
+    location.pathname !== "/gifts"
   ) {
     return null;
   }
@@ -53,6 +54,7 @@ function Navbar() {
           >
             RSVP
           </NavLink>
+          <NavLink to="/gifts">Gifts & Donations</NavLink>
         </nav>
       </header>
     </>

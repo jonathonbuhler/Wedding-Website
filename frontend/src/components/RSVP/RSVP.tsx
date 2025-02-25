@@ -6,15 +6,46 @@ import styles from "./RSVP.module.css";
 
 function RSVP() {
   const navigate = useNavigate();
-  const [name, setName] = useState("");
+  const [person, setPerson] = useState({
+    name: "" as string,
+    invitedSealing: false as boolean,
+    invitedLuncheon: false as boolean,
+  });
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    navigate("/rsvp-form", { state: { name } });
+    const nameParts = person.name.split(" ");
+    const firstName = nameParts[0];
+    const lastName = nameParts[nameParts.length - 1];
+    fetch("http://localhost:3001/check-rsvp-status", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        first_name: firstName,
+        last_name: lastName,
+      }),
+    })
+      .then((response) => response.json())
+      .then((data) => {
+        const updatedPerson = {
+          ...person,
+          invitedSealing: Boolean(data.invited_sealing),
+          invitedLuncheon: Boolean(data.invited_luncheon),
+        };
+        setPerson(updatedPerson);
+        navigate("/rsvp-form", { state: { updatedPerson } });
+      })
+      .catch((err) => {
+        console.error("Error checking rsvp status.", err);
+        alert("Error");
+      });
   };
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setName(e.target.value);
+    setPerson({
+      ...person,
+      name: e.target.value,
+    });
   };
 
   return (
@@ -50,12 +81,12 @@ function RSVPForm() {
   });
 
   const [formData, setFormData] = useState({
-    name: location.state?.name as string,
+    name: location.state?.updatedPerson.name as string,
     bringingGuests: false,
     numGuests: 0,
     guests: [] as string[],
-    invitedLuncheon: true,
-    invitedSealing: true,
+    invitedLuncheon: location.state?.updatedPerson.invitedLuncheon as boolean,
+    invitedSealing: location.state?.updatedPerson.invitedSealing as boolean,
     attendingSealing: [] as string[],
     attendingLuncheon: [] as string[],
     attendingReception: [] as string[],
@@ -80,6 +111,20 @@ function RSVPForm() {
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
+    fetch("http://localhost:3001/submit-rsvp", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(formData),
+    })
+      .then((response) => response.json())
+      .then((data) => {
+        alert(data.message);
+        navigate("/");
+      })
+      .catch((err) => {
+        alert("An Error Occurred");
+        console.error("Error submitting rsvp", err);
+      });
   };
 
   const handleAddGuestAttending = (

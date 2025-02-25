@@ -1,11 +1,11 @@
 import styles from "./Admin.module.css";
 import { useEffect, useState } from "react";
 
-type Invite = {
+type Person = {
   first_name: string;
   last_name: string;
-  address_1: string;
-  address_2: string;
+  address_line1: string;
+  address_line2: string;
   city: string;
   state: string;
   postal: string;
@@ -21,12 +21,27 @@ function Login() {
 }
 
 function Admin() {
-  const [invites, setInvites] = useState<Invite[]>([]);
+  const [people, setPeople] = useState<Person[]>([]);
+  const [attending, setAttending] = useState({
+    sealing: 0 as number,
+    luncheon: 0 as number,
+    reception: 0 as number,
+  });
 
   useEffect(() => {
     fetch("http://localhost:3001/load-invites")
       .then((response) => response.json())
-      .then((data) => setInvites(data))
+      .then((data) => setPeople(data))
+      .catch((error: any) => console.error("Error loading invites", error));
+    fetch("http://localhost:3001/load-attending")
+      .then((response) => response.json())
+      .then((data) =>
+        setAttending({
+          sealing: parseInt(data.sealing),
+          luncheon: parseInt(data.luncheon),
+          reception: parseInt(data.reception),
+        })
+      )
       .catch((error: any) => console.error("Error loading invites", error));
   }, []);
 
@@ -47,12 +62,12 @@ function Admin() {
           </tr>
         </thead>
         <tbody>
-          {invites.map((item, index) => (
+          {people.map((item, index) => (
             <tr key={index}>
               <td>{item.first_name}</td>
               <td>{item.last_name}</td>
-              <td>{item.address_1}</td>
-              <td>{item.address_2}</td>
+              <td>{item.address_line1}</td>
+              <td>{item.address_line2}</td>
               <td>{item.city}</td>
               <td>{item.state}</td>
               <td>{item.postal}</td>
@@ -61,6 +76,9 @@ function Admin() {
           ))}
         </tbody>
       </table>
+      <h2>Sealing {attending.sealing}</h2>
+      <h2>Luncheon {attending.luncheon}</h2>
+      <h2>Reception {attending.reception}</h2>
     </div>
   );
 }

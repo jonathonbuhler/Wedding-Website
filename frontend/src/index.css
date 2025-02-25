@@ -110,3 +110,8 @@ select {
   background-color: white;
   height: 40px;
 }
+
+img {
+  object-fit: cover;
+  width: 100%;
+}

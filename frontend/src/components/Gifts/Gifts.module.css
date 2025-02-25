@@ -1,0 +1,28 @@
+.gifts-container {
+  display: grid;
+  row-gap: 20px;
+  max-width: 600px;
+  padding: 15px;
+  grid-template-columns: repeat(12, 1fr);
+  width: calc(100% - 30px);
+  margin: auto;
+  justify-content: center;
+  align-items: center;
+}
+
+.gifts-container * {
+  justify-self: center;
+}
+
+.gifts-container img {
+  max-width: 600px;
+  grid-column: span 12;
+}
+
+.profile-picture {
+  max-width: 300px;
+  width: 25%;
+  aspect-ratio: 1/1;
+  border-radius: 50%;
+  object-position: 0% 10%;
+}
