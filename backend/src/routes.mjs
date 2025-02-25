@@ -5,9 +5,10 @@ import mysql from 'mysql2'
 const router = express.Router();
 
 const pool = mysql.createPool({
-    host: 'wedding.cihg8aa88bhp.us-east-1.rds.amazonaws.com',
+    host: 'localhost',
+    port: '3306',
     user: 'admin',
-    password: 'B8(4s$sY0',
+    password: '7Ne9!@fh*z',
     database: 'wedding',
     waitForConnections: true, 
     connectionLimit: 10, 
@@ -20,9 +21,10 @@ router.post('/add-invite', async (req, res) => {
 
     const query1 = "INSERT INTO address (address_line1, address_line2, city, state, postal, country) VALUES (?,?,?,?,?,?)";
     const query2 = "INSERT INTO person (first_name, last_name, address_id) VALUES (?,?,?)";
-    const connection = await pool.getConnection();
+    
 
     try {
+        const connection = await pool.getConnection();
         await connection.beginTransaction()
 
         const [address] = await connection.query(query1, [address_1, address_2, city, state, postal, country]);
@@ -78,9 +80,10 @@ router.post('/submit-rsvp', async (req, res) => {
     const query0 = "SELECT party_id FROM person WHERE LOWER(first_name) = LOWER(?) AND LOWER(last_name) = LOWER(?)"
     const query1 = "INSERT INTO party(sealing_party_size, luncheon_party_size, reception_party_size) VALUES (?,?,?)"
     const query2 = "UPDATE person SET party_id = ? WHERE LOWER(first_name) = LOWER(?) AND LOWER(last_name) = LOWER(?)"
-    const connection = await pool.getConnection()
+    
 
     try {
+        const connection = await pool.getConnection()
         await connection.beginTransaction()
         const [results] = await connection.query(query0, [name.split(" ")[0], name.split(" ")[name.split(" ").length - 1]])
         if (results.length > 0 && results[0].party_id) {
