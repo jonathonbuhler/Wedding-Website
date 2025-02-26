@@ -29,11 +29,11 @@ function Admin() {
   });
 
   useEffect(() => {
-    fetch("http://localhost:3001/load-invites")
+    fetch("https://emmalynandjonathon.com/api/load-invites")
       .then((response) => response.json())
       .then((data) => setPeople(data))
       .catch((error: any) => console.error("Error loading invites", error));
-    fetch("http://localhost:3001/load-attending")
+    fetch("https://emmalynandjonathon.com/api/load-attending")
       .then((response) => response.json())
       .then((data) =>
         setAttending({

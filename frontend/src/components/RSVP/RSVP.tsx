@@ -17,7 +17,7 @@ function RSVP() {
     const nameParts = person.name.split(" ");
     const firstName = nameParts[0];
     const lastName = nameParts[nameParts.length - 1];
-    fetch("http://localhost:3001/check-rsvp-status", {
+    fetch("https://emmalynandjonathon.com/api/check-rsvp-status", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({
@@ -111,7 +111,7 @@ function RSVPForm() {
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    fetch("http://localhost:3001/submit-rsvp", {
+    fetch("https://emmalynandjonathon.com/api/submit-rsvp", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(formData),
