@@ -79,7 +79,7 @@ router.post('/submit-rsvp', async (req, res) => {
 
     const query0 = "SELECT party_id FROM person WHERE LOWER(first_name) = LOWER(?) AND LOWER(last_name) = LOWER(?)"
     const query1 = "INSERT INTO party(sealing_party_size, luncheon_party_size, reception_party_size) VALUES (?,?,?)"
-    const query2 = "UPDATE person SET party_id = ? WHERE LOWER(first_name) = LOWER(?) AND LOWER(last_name) = LOWER(?)"
+    const query2 = "UPDATE person SET party_id = ?, attending_sealing = ?, attending_luncheon = ?, attending_reception = ? WHERE LOWER(first_name) = LOWER(?) AND LOWER(last_name) = LOWER(?)"
     
 
     try {
@@ -99,7 +99,8 @@ router.post('/submit-rsvp', async (req, res) => {
             if (splitName.length >= 2) {
                 last_name = splitName[splitName.length - 1];
             }
-            return connection.query(query2, [party.insertId, first_name, last_name]);
+            return connection.query(query2, [party.insertId, first_name, last_name, attendingSealing.includes(name), attendingLuncheon.includes(name), attendingReception.includes(name)]);
+            
         });
             
         await Promise.all(promises);
