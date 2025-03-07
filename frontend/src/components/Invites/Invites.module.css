@@ -1,11 +1,13 @@
 .invites-container {
   padding: 0 15px 0 15px;
   min-height: 50vh;
+  margin-top: 20px;
+  margin-bottom: 80px;
 }
 
 .invites-container form {
   display: flex;
-  gap: 12px;
+  gap: 15px;
   flex-direction: column;
   width: 100%;
 }

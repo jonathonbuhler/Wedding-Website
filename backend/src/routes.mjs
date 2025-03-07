@@ -1,7 +1,7 @@
 
 import express from 'express'
 import mysql from 'mysql2'
-import splitName from './helper.mjs';
+import { splitName, sendRSVPConfirmation } from './helper.mjs';
 
 const router = express.Router();
 
@@ -18,10 +18,10 @@ const pool = mysql.createPool({
 
 
 router.post('/add-invite', async (req, res) => {
-    const { first_name, last_name, address_1, address_2, city, state, postal, country} = req.body
+    const { first_name, last_name, email, address_1, address_2, city, state, postal, country} = req.body
 
     const query1 = "INSERT INTO address (address_line1, address_line2, city, state, postal, country) VALUES (?,?,?,?,?,?)";
-    const query2 = "INSERT INTO person (first_name, last_name, address_id) VALUES (?,?,?)";
+    const query2 = "INSERT INTO person (first_name, last_name, email, address_id) VALUES (?,?,?,?)";
 
     let connection = null;
 
@@ -30,7 +30,7 @@ router.post('/add-invite', async (req, res) => {
         await connection.beginTransaction()
 
         const [address] = await connection.query(query1, [address_1, address_2, city, state, postal, country]);
-        await connection.query(query2, [first_name, last_name, address.insertId]);
+        await connection.query(query2, [first_name, last_name, email, address.insertId]);
 
         await connection.commit()
 
@@ -54,7 +54,7 @@ router.post('/add-invite', async (req, res) => {
 
 
 router.get('/load-invites', async (req, res) => {
-    const query = 'SELECT * FROM person LEFT JOIN address ON address.id = person.address_id';
+    const query = 'SELECT * FROM person LEFT JOIN address ON address.id = person.address_id ORDER BY person.last_name';
     
     try {
         const [results] = await pool.query(query);
@@ -82,7 +82,7 @@ router.post('/check-rsvp-status', async (req, res) => {
 })
 
 router.post('/submit-rsvp', async (req, res) => {
-    const { name, bringingGuests, numGuests, guests, invitedLuncheon, invitedSealing, attendingSealing, attendingLuncheon, attendingReception } = req.body;
+    const { name, email, bringingGuests, numGuests, guests, invitedLuncheon, invitedSealing, attendingSealing, attendingLuncheon, attendingReception } = req.body;
 
     if (!name) {
         return res.json({ message: 'An Error Occurred.' })
@@ -92,28 +92,33 @@ router.post('/submit-rsvp', async (req, res) => {
 
     const query0 = "SELECT party_id FROM person WHERE LOWER(first_name) = LOWER(?) AND LOWER(last_name) = LOWER(?)"
     const query1 = "INSERT INTO party(sealing_party_size, luncheon_party_size, reception_party_size) VALUES (?,?,?)"
-    const query2 = "UPDATE person SET party_id = ?, attending_sealing = ?, attending_luncheon = ?, attending_reception = ? WHERE LOWER(first_name) = LOWER(?) AND LOWER(last_name) = LOWER(?)"    
+    const query2 = "UPDATE person SET party_id = ?, attending_sealing = ?, attending_luncheon = ?, attending_reception = ? WHERE LOWER(first_name) = LOWER(?) AND LOWER(last_name) = LOWER(?)"
+    
 
     let connection = null;
     try {    
         connection = await pool.getConnection()
         await connection.beginTransaction()
-        const [results] = await connection.query(query0, first_name, last_name)
+        const [results] = await connection.query(query0, [first_name, last_name])
         if (results.length > 0 && results[0].party_id) {
             return res.json({ message: "You cannot RSVP twice."})
         }
 
-        const [party] = await connection.query(query1, [attendingSealing.length, attendingLuncheon.length, attendingReception.length]);        
+        const [party] = await connection.query(query1, [attendingSealing.length, attendingLuncheon.length, attendingReception.length]);     
         
         const promises1 = guests.map((value) => {
-            const { guest_first_name, guest_last_name } = splitName(value)
-            return connection.query(query2, [party.insertId, attendingSealing.includes(name), attendingLuncheon.includes(name), attendingReception.includes(name), guest_first_name, guest_last_name]);
-
+            const { first_name: guest_first_name, last_name: guest_last_name } = splitName(value);
+            return connection.query(query2, [party.insertId, attendingSealing.includes(value), attendingLuncheon.includes(value), attendingReception.includes(value), guest_first_name, guest_last_name]);
         });
 
         await Promise.all(promises1);
 
         await connection.commit();
+
+        if (email && (attendingSealing.length > 0 || attendingLuncheon.length > 0 || attendingReception.length > 0)) {
+            sendRSVPConfirmation(email, first_name, last_name, attendingSealing, attendingLuncheon, attendingReception)
+        }
+        
         res.json({ message: 'Thank you. Your submission has been recorded.' });
         
 
@@ -121,7 +126,8 @@ router.post('/submit-rsvp', async (req, res) => {
         if (connection) {
             await connection.rollback()
         }
-        res.json({ message: 'An Error Occurred.' })
+        console.error("Error submitting rsvp", err)
+        return res.json({ message: 'An error occurred.' })
     } finally {
         if (connection) {
             connection.release()

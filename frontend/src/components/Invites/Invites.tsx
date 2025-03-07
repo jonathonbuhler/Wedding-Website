@@ -5,6 +5,7 @@ function Invites() {
   const [formData, setFormData] = useState({
     first_name: "",
     last_name: "",
+    email: "",
     address_1: "",
     address_2: "",
     city: "",
@@ -27,6 +28,12 @@ function Invites() {
       autocomplete: "family-name",
     },
     {
+      name: "email",
+      placeholder: "Email (Optional)",
+      required: false,
+      autocomplete: "email",
+    },
+    {
       name: "address_1",
       placeholder: "Address Line 1",
       required: true,
@@ -34,7 +41,7 @@ function Invites() {
     },
     {
       name: "address_2",
-      placeholder: "Address Line 2",
+      placeholder: "Address Line 2 (Optional)",
       required: false,
       autocomplete: "address-line2",
     },
@@ -80,6 +87,7 @@ function Invites() {
       setFormData({
         first_name: "",
         last_name: "",
+        email: "",
         address_1: "",
         address_2: "",
         city: "",

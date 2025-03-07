@@ -1,7 +1,7 @@
 .gifts-container {
   display: grid;
   row-gap: 20px;
-  max-width: 600px;
+  max-width: 400px;
   padding: 15px;
   grid-template-columns: repeat(12, 1fr);
   width: calc(100% - 30px);
@@ -15,14 +15,32 @@
 }
 
 .gifts-container img {
-  max-width: 600px;
+  max-width: 400px;
   grid-column: span 12;
 }
 
 .profile-picture {
-  max-width: 300px;
+  max-width: 400px;
   width: 25%;
   aspect-ratio: 1/1;
   border-radius: 50%;
   object-position: 0% 10%;
+}
+
+.gifts-container i {
+  font-size: 45px;
+}
+
+.registry {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+  padding: 30px;
+  border-radius: 5px;
+  box-shadow: 1px 1px 5px gray;
+}
+
+.registry button {
+  padding: 10px;
+  border-radius: 5px;
 }

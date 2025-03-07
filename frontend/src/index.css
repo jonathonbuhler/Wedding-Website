@@ -100,6 +100,7 @@ input[type="text"],
 input[type="address"],
 input[type="submit"],
 input[type="number"],
+input[type="email"],
 select {
   border: 1px solid rgba(128, 128, 128, 0.517);
   padding: 8px;

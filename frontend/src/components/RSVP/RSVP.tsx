@@ -37,7 +37,7 @@ function RSVP() {
       })
       .catch((err) => {
         console.error("Error checking rsvp status.", err);
-        alert("Error");
+        alert("Error connecting to server.");
       });
   };
 
@@ -82,6 +82,7 @@ function RSVPForm() {
 
   const [formData, setFormData] = useState({
     name: location.state?.updatedPerson.name as string,
+    email: "" as string,
     bringingGuests: false,
     numGuests: 0,
     guests: [] as string[],
@@ -122,7 +123,7 @@ function RSVPForm() {
         navigate("/");
       })
       .catch((err) => {
-        alert("An Error Occurred");
+        alert("An error occurred.");
         console.error("Error submitting rsvp", err);
       });
   };
@@ -156,8 +157,8 @@ function RSVPForm() {
     e.preventDefault();
     setFormData({
       ...formData,
-      attendingSealing: formData.guests,
-      attendingLuncheon: formData.guests,
+      attendingSealing: formData.invitedSealing ? formData.guests : [],
+      attendingLuncheon: formData.invitedLuncheon ? formData.guests : [],
       attendingReception: formData.guests,
     });
   };
@@ -283,6 +284,13 @@ function RSVPForm() {
     });
   }, [formData.bringingGuests, formData.numGuests]);
 
+  const handleEmailChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setFormData({
+      ...formData,
+      email: e.target.value,
+    });
+  };
+
   return (
     <>
       <img className={styles.flowers} src={flowers} alt="background flowers" />
@@ -292,6 +300,16 @@ function RSVPForm() {
         <h1>RSVP Form</h1>
         <form onSubmit={handleSubmit}>
           <h2>Hi, {formData.name.split(" ")[0]}</h2>
+          <p>
+            Please enter your email if you would like a confirmation sent to
+            your inbox.
+          </p>
+          <input
+            name="email"
+            type="email"
+            placeholder="Email (Optional)"
+            onChange={(e) => handleEmailChange(e)}
+          />
           <label>
             <p>Would you like to add anyone else to your party?</p>
             <input
@@ -351,6 +369,7 @@ function RSVPForm() {
               </span>
             </span>
           </h2>
+
           {formData.bringingGuests ? (
             <>
               <p>
@@ -363,9 +382,19 @@ function RSVPForm() {
                   Add all guests to all events.
                 </button>
               </p>
+              <hr />
               {formData.invitedSealing && (
                 <div className={styles.event}>
                   <h3>Sealing</h3>
+                  <p>
+                    May 10, 2025 | 10:00 a.m. | Manti Temple |{" "}
+                    <a
+                      href="https://maps.app.goo.gl/4KqAZXUibz5avHKDA"
+                      target="_blank"
+                    >
+                      200 East 510 North, Manti, UT 84642
+                    </a>
+                  </p>
                   <AddPeopleAttending attending="attendingSealing" />
                   <div className={styles["list-attending-container"]}>
                     <ListPeopleAttending attending={"attendingSealing"} />
@@ -379,11 +408,21 @@ function RSVPForm() {
                       +
                     </button>
                   </div>
+                  <hr />
                 </div>
               )}
               {formData.invitedLuncheon && (
                 <div className={styles.event}>
                   <h3>Luncheon</h3>
+                  <p>
+                    May 10, 2025 | 2:00 p.m. | Hawks Rest Chapel |{" "}
+                    <a
+                      href="https://maps.app.goo.gl/mZMRxCtwD4c99yF46"
+                      target="_blank"
+                    >
+                      825 Hawks Rst Dr, Mapleton, UT 84664
+                    </a>
+                  </p>
                   <AddPeopleAttending attending="attendingLuncheon" />
                   <div className={styles["list-attending-container"]}>
                     <ListPeopleAttending attending={"attendingLuncheon"} />
@@ -397,10 +436,21 @@ function RSVPForm() {
                       +
                     </button>
                   </div>
+                  <hr />
                 </div>
               )}
               <div className={styles.event}>
                 <h3>Reception</h3>
+                <p>
+                  May 10, 2025 | 6:30 p.m. - 8:30 p.m. | The Barn on Mapleton
+                  Pond |{" "}
+                  <a
+                    href="https://maps.app.goo.gl/bcJJuVkX2Wg1sBdF8"
+                    target="_blank"
+                  >
+                    1250 S Nemelka Ln, Mapleton, UT 84664
+                  </a>
+                </p>
                 <AddPeopleAttending attending="attendingReception" />
                 <div className={styles["list-attending-container"]}>
                   <ListPeopleAttending attending={"attendingReception"} />
@@ -414,34 +464,60 @@ function RSVPForm() {
                     +
                   </button>
                 </div>
+                <hr />
               </div>
             </>
           ) : (
             <>
               <p>Please select the events you will be attending.</p>
+              <hr />
               {formData.invitedSealing && (
-                <label>
-                  <h3>Sealing</h3>
-                  <input
-                    className={styles.check}
-                    name="attendingSealing"
-                    type="checkbox"
-                    onChange={handleAddAttending}
-                    checked={!(formData.attendingSealing.length === 0)}
-                  />
-                </label>
+                <>
+                  <label>
+                    <h3>Sealing</h3>
+                    <input
+                      className={styles.check}
+                      name="attendingSealing"
+                      type="checkbox"
+                      onChange={handleAddAttending}
+                      checked={!(formData.attendingSealing.length === 0)}
+                    />
+                  </label>
+                  <p>
+                    May 10, 2025 | 10:00 a.m. | Manti Temple |{" "}
+                    <a
+                      href="https://maps.app.goo.gl/4KqAZXUibz5avHKDA"
+                      target="_blank"
+                    >
+                      200 East 510 North, Manti, UT 84642
+                    </a>
+                  </p>
+                  <hr />
+                </>
               )}
               {formData.invitedLuncheon && (
-                <label>
-                  <h3>Luncheon</h3>
-                  <input
-                    className={styles.check}
-                    type="checkbox"
-                    name="attendingLuncheon"
-                    onChange={handleAddAttending}
-                    checked={!(formData.attendingLuncheon.length === 0)}
-                  />
-                </label>
+                <>
+                  <label>
+                    <h3>Luncheon</h3>
+                    <input
+                      className={styles.check}
+                      type="checkbox"
+                      name="attendingLuncheon"
+                      onChange={handleAddAttending}
+                      checked={!(formData.attendingLuncheon.length === 0)}
+                    />
+                  </label>
+                  <p>
+                    May 10, 2025 | 2:00 p.m. | Hawks Rest Chapel |{" "}
+                    <a
+                      href="https://maps.app.goo.gl/mZMRxCtwD4c99yF46"
+                      target="_blank"
+                    >
+                      825 Hawks Rst Dr, Mapleton, UT 84664
+                    </a>
+                  </p>
+                  <hr />
+                </>
               )}
               <label>
                 <h3>Reception</h3>
@@ -453,6 +529,17 @@ function RSVPForm() {
                   checked={!(formData.attendingReception.length === 0)}
                 />
               </label>
+              <p>
+                May 10, 2025 | 6:30 p.m. - 8:30 p.m. | The Barn on Mapleton Pond
+                |{" "}
+                <a
+                  href="https://maps.app.goo.gl/bcJJuVkX2Wg1sBdF8"
+                  target="_blank"
+                >
+                  1250 S Nemelka Ln, Mapleton, UT 84664
+                </a>
+              </p>
+              <hr />
             </>
           )}
           <input type="submit" />
