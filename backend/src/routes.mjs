@@ -2,6 +2,7 @@
 import express from 'express'
 import mysql from 'mysql2'
 import { splitName, sendRSVPConfirmation } from './helper.mjs';
+import 'dotenv/config'
 
 const router = express.Router();
 
@@ -9,7 +10,7 @@ const pool = mysql.createPool({
     host: 'localhost',
     port: '3306',
     user: 'admin',
-    password: '7Ne9!@fh*z',
+    password: process.env.PASSWORD,
     database: 'wedding',
     waitForConnections: true, 
     connectionLimit: 10, 

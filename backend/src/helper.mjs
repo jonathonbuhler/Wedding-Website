@@ -1,4 +1,5 @@
 import nodemailer from "nodemailer"
+import 'dotenv/config'
 
 function splitName(name) {
     const splitName = name.split(" ");
@@ -17,7 +18,7 @@ async function sendRSVPConfirmation(email, first_name, last_name, attendingSeali
         secure: true,
         auth: {
             user: "info@emmalynandjonathon.com",
-            pass: "7Ne9!@fh*z",
+            pass: process.env.PASSWORD,
         }
     })
 
